@@ -1,9 +1,15 @@
 import React from 'react';
+import { Provider } from 'react-redux';
+
+import './config/reactotron';
+import store from './store';
 
 const App = () => (
-  <div className="App">
-    <p>Jesuss loves you!</p>
-  </div>
+  <Provider store={store}>
+    <div className="App">
+      <p>Jesus loves you!</p>
+    </div>
+  </Provider>
 );
 
 export default App;
