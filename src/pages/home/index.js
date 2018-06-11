@@ -1,13 +1,15 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import Map from './components/Map';
 import UserList from '../../components/UserList';
 
+import { Container } from './styles';
+
 const Home = () => (
-  <Fragment>
+  <Container>
     <Map />
     <UserList />
-  </Fragment>
+  </Container>
 );
 
 export default Home;
