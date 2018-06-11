@@ -47,6 +47,11 @@ class Map extends Component {
 
     const [latitude, longitude] = e.lngLat;
 
+    this.setState({
+      latitude,
+      longitude,
+    });
+
     /*this.props.addUserRequest({
       latitude,
       longitude,
@@ -79,7 +84,7 @@ class Map extends Component {
           />
         </Marker>
 
-        {this.state.modalView && <AlertDialogSlide />}
+        {this.state.modalView && <AlertDialogSlide latitude={this.state.latitude} longitude={this.state.longitude} />}
       </MapGL>
     );
   }

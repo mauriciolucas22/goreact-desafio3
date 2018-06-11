@@ -26,6 +26,7 @@ class AlertDialogSlide extends React.Component {
 
   // <Button onClick={this.handleClickOpen}>Slide in alert dialog</Button>
   render() {
+    const { latitude, longitude } = this.props;
     return (
       <div>
         <Dialog
@@ -41,7 +42,11 @@ class AlertDialogSlide extends React.Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              Digite um nome de usuário.
+              <input
+                type="text"
+                placeholder=""
+              />
+              {latitude}:{longitude}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
