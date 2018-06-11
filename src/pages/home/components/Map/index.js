@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import MapGL, { Marker } from 'react-map-gl';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { Actions as UsersActions } from '../../../../store/ducks/users';
+
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-export default class Map extends Component {
+class Map extends Component {
   state = {
     viewport: {
       width: window.innerWidth,
@@ -33,17 +38,18 @@ export default class Map extends Component {
     });
   };
 
-  /* handleMapClick(e) {
+  handleMapClick = (e) => {
     const [latitude, longitude] = e.lngLat;
+    console.tron.log(this.props);
 
     alert(`Latitude: ${latitude} \nLongitude: ${longitude}`);
-  } */
+  }
 
   render() {
     return (
       <MapGL
         {...this.state.viewport}
-        // onClick={this.handleMapClick}
+        onClick={this.handleMapClick}
         mapStyle="mapbox://styles/mapbox/basic-v9"
         mapboxApiAccessToken="pk.eyJ1IjoiZGllZ28zZyIsImEiOiJjamh0aHc4em0wZHdvM2tyc3hqbzNvanhrIn0.3HWnXHy_RCi35opzKo8sHQ"
         onViewportChange={viewport => this.setState({ viewport })}
@@ -67,3 +73,8 @@ export default class Map extends Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(UsersActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(Map);
