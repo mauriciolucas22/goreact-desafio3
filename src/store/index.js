@@ -16,6 +16,6 @@ const createAppropriateStore = process.env.NODE_ENV === 'development' ? console.
 
 const store = createAppropriateStore(reducers, compose(applyMiddleware(...middlewares)));
 
-// sagaMiddleware.run(sagas);
+sagaMiddleware.run(sagas);
 
 export default store;

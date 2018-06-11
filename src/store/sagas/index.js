@@ -1,10 +1,10 @@
 import { all, takeLatest } from 'redux-saga/effects';
 
-import { Types as UserTypes } from '../ducks/users';
+import { Types as UsersTypes } from '../ducks/users';
 import { addUser } from './users';
 
 export default function* rootSaga() {
   yield all([
-    takeLatest(UserTypes.ADD_USER_REQUEST, addUser),
+    takeLatest(UsersTypes.ADD_FAVORITE_REQUEST, addUser),
   ]);
 }

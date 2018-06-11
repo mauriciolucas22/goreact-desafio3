@@ -4,10 +4,12 @@ import { Provider } from 'react-redux';
 import './config/reactotron';
 import store from './store';
 
+import Routes from './routes';
+
 const App = () => (
   <Provider store={store}>
     <div className="App">
-      <p>Jesus loves you!</p>
+      <Routes />
     </div>
   </Provider>
 );
