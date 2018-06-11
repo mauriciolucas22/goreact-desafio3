@@ -1,13 +1,28 @@
 import { call, put, select } from 'redux-saga/effects';
-// api
+import api from '../../services/api';
 import { Actions as UserActions } from '../ducks/users';
 
 export function* addUser(action) {
   try {
-    console.tron.log(action);
+    const { data } = yield call(api.get, `/users/${action.payload.userInfo.userName}`);
 
-    yield put(UserActions.addUserRequest({}));
+    const isDuplicated =
+    yield select(state => state.users.data.find(user => user.id !== data.id));
+
+    if (isDuplicated) {
+      yield put(UserActions.addUserFailure('usuario duplicado'));
+    } else {
+      const userResponse = {
+        id: data.id,
+        name: data.name,
+        avatar_url: data.avatar_url,
+        latitude: action.payload.userInfo.latitude,
+        longitude: action.payload.userInfo.longitude,
+      };
+
+      yield put(UserActions.addUserSuccess(userResponse));
+    }
   } catch (err) {
-    console.tron.warn('Error in add user');
+    yield put(UserActions.addUserFailure('Erro ao add user'));
   }
 }

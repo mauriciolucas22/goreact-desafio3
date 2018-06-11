@@ -40,9 +40,12 @@ class Map extends Component {
 
   handleMapClick = (e) => {
     const [latitude, longitude] = e.lngLat;
-    console.tron.log(this.props);
 
-    alert(`Latitude: ${latitude} \nLongitude: ${longitude}`);
+    this.props.addUserRequest({
+      latitude,
+      longitude,
+      userName: 'mauriciolucas22',
+    });
   }
 
   render() {

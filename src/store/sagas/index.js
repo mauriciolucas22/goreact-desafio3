@@ -5,6 +5,6 @@ import { addUser } from './users';
 
 export default function* rootSaga() {
   yield all([
-    takeLatest(UsersTypes.ADD_FAVORITE_REQUEST, addUser),
+    takeLatest(UsersTypes.ADD_USER_REQUEST, addUser),
   ]);
 }
