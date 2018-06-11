@@ -2,11 +2,13 @@ export const Types = {
   ADD_USER_REQUEST: 'ADD_USER_REQUEST',
   ADD_USER_SUCCESS: 'ADD_USER_SUCCESS',
   ADD_USER_FAILURE: 'ADD_USER_FAILURE',
+  MODAL_VISIBLE: 'MODAL_VISIBLE',
 };
 
 const INITIAL_STATE = {
   loading: false,
   error: null,
+  modalVisible: false,
   data: [],
 };
 
@@ -22,6 +24,7 @@ export default function users(state = INITIAL_STATE, action) {
       return {
         loading: false,
         error: null,
+        modalVisible: false,
         data: [
           ...state.data,
           { ...action.payload.data },
@@ -34,6 +37,9 @@ export default function users(state = INITIAL_STATE, action) {
         loading: false,
         error: action.payload.error,
       };
+
+    case Types.MODAL_VISIBLE:
+      return { ...state, modalVisible: action.status };
 
     default:
       return state;
@@ -60,5 +66,10 @@ export const Actions = {
     payload: {
       error,
     },
+  }),
+
+  setModalVisible: status => ({
+    type: Types.MODAL_VISIBLE,
+    status,
   }),
 };

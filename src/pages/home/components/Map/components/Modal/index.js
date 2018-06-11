@@ -6,22 +6,22 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { Actions as UsersActions } from '../../../../../../store/ducks/users';
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
 class AlertDialogSlide extends React.Component {
-  state = {
-    open: this.props.modalView,
-  };
-
   handleClickOpen = () => {
-    this.setState({ open: true });
+    this.props.setModalVisible(true);
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.props.setModalVisible(false);
   };
 
   // <Button onClick={this.handleClickOpen}>Slide in alert dialog</Button>
@@ -29,7 +29,7 @@ class AlertDialogSlide extends React.Component {
     return (
       <div>
         <Dialog
-          open={this.state.open}
+          open={this.props.modalVisible}
           TransitionComponent={Transition}
           keepMounted
           onClose={this.handleClose}
@@ -37,20 +37,19 @@ class AlertDialogSlide extends React.Component {
           aria-describedby="alert-dialog-slide-description"
         >
           <DialogTitle id="alert-dialog-slide-title">
-            {"Use Google's location service?"}
+            {'Digite um nome de usuário'}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              Let Google help apps determine location. This means sending anonymous location data to
-              Google, even when no apps are running.
+              Digite um nome de usuário.
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
-              Disagree
+              Cancelar
             </Button>
             <Button onClick={this.handleClose} color="primary">
-              Agree
+              Ok
             </Button>
           </DialogActions>
         </Dialog>
@@ -59,4 +58,11 @@ class AlertDialogSlide extends React.Component {
   }
 }
 
-export default AlertDialogSlide;
+const mapStateToProps = state => ({
+  modalVisible: state.users.modalVisible,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(UsersActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AlertDialogSlide);

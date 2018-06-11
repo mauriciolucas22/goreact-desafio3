@@ -19,7 +19,6 @@ class Map extends Component {
       longitude: -46.6065452,
       zoom: 14,
     },
-    modalView: false,
   };
 
   componentDidMount() {
@@ -43,22 +42,17 @@ class Map extends Component {
 
   handleMapClick = (e) => {
     this.setState({ modalView: true });
+
+    this.props.setModalVisible(true);
+
     const [latitude, longitude] = e.lngLat;
 
-    this.props.addUserRequest({
+    /*this.props.addUserRequest({
       latitude,
       longitude,
       userName: 'mauriciolucas22',
-    });
+    });*/
   }
-
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
-
-  handleClose = () => {
-    this.setState({ open: false });
-  };
 
   render() {
     return (
@@ -85,7 +79,7 @@ class Map extends Component {
           />
         </Marker>
 
-        {this.state.modalView && <AlertDialogSlide modalView={this.state.modalView} />}
+        {this.state.modalView && <AlertDialogSlide />}
       </MapGL>
     );
   }
