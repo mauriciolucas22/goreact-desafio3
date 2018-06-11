@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-const Main = () => <h1>Main</h1>;
+import Home from '../pages/home';
 
 const Routes = () => (
   <BrowserRouter>
     <Fragment>
       <Switch>
-        <Route exact path="/" component={Main} />
+        <Route exact path="/" component={Home} />
       </Switch>
     </Fragment>
   </BrowserRouter>
