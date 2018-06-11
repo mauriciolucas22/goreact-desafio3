@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import MapGL, { Marker } from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+
 import { Actions as UsersActions } from '../../../../store/ducks/users';
 
-import 'mapbox-gl/dist/mapbox-gl.css';
+import AlertDialogSlide from './components/Modal';
 
 class Map extends Component {
   state = {
@@ -17,6 +19,7 @@ class Map extends Component {
       longitude: -46.6065452,
       zoom: 14,
     },
+    modalView: false,
   };
 
   componentDidMount() {
@@ -39,6 +42,7 @@ class Map extends Component {
   };
 
   handleMapClick = (e) => {
+    this.setState({ modalView: true });
     const [latitude, longitude] = e.lngLat;
 
     this.props.addUserRequest({
@@ -47,6 +51,14 @@ class Map extends Component {
       userName: 'mauriciolucas22',
     });
   }
+
+  handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
+  };
 
   render() {
     return (
@@ -72,6 +84,8 @@ class Map extends Component {
             src="https://avatars2.githubusercontent.com/u/2254731?v=4"
           />
         </Marker>
+
+        {this.state.modalView && <AlertDialogSlide modalView={this.state.modalView} />}
       </MapGL>
     );
   }
