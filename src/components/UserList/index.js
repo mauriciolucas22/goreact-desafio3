@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,30 +10,20 @@ import UserInfo from './components/UserInfo';
 
 import { Container } from './styles';
 
-const users = [
-  {
-    login: 'mauriciolucas22',
-    id: 20993303,
-    avatar_url: 'https://avatars0.githubusercontent.com/u/20993303?v=4',
-    name: 'Mauricio Lucas',
-  },
-  {
-    login: 'diego3g',
-    id: 2254731,
-    avatar_url: 'https://avatars2.githubusercontent.com/u/2254731?v=4',
-    name: 'Diego Fernandes',
-  },
-];
+// { this.props.users.map(user => <UserInfo key={user.id} user={user} />) }
 
-const UserList = () => (
+const UserList = ({ users }) => (
   <Container>
     <p>UserList</p>
-    { users.map(user => <UserInfo user={user} />) }
   </Container>
 );
 
+UserList.propTypes = {
+  users: PropTypes.arrayOf(PropTypes.shape).isRequired,
+};
+
 const mapStateToProps = state => ({
-  users: state.users,
+  users: state.users.data,
 });
 
 const mapDispatchToProps = dispatch =>

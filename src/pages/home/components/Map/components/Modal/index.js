@@ -35,8 +35,14 @@ class AlertDialogSlide extends React.Component {
     this.setState({ textInput: e.target.value });
   }
 
-  handleClickOpen = () => {
-    this.props.setModalVisible(true);
+  handleClickOk = () => {
+    // this.props.setModalVisible(true);
+    const { latitude, longitude } = this.props;
+    this.props.addUserRequest({
+      latitude,
+      longitude,
+      userName: this.state.textInput,
+    });
   };
 
   handleClose = () => {
@@ -45,7 +51,6 @@ class AlertDialogSlide extends React.Component {
 
   // <Button onClick={this.handleClickOpen}>Slide in alert dialog</Button>
   render() {
-    const { latitude, longitude } = this.props;
     return (
       <div>
         <Dialog
@@ -62,14 +67,13 @@ class AlertDialogSlide extends React.Component {
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
               <TextFields onChange={this.onChange} />
-              {this.state.textInput}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancelar
             </Button>
-            <Button type="submit" onClick={this.handleClose} color="primary">
+            <Button type="submit" onClick={this.handleClickOk} color="primary">
               Ok
             </Button>
           </DialogActions>

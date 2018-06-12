@@ -7,7 +7,7 @@ export function* addUser(action) {
     const { data } = yield call(api.get, `/users/${action.payload.userInfo.userName}`);
 
     const isDuplicated =
-    yield select(state => state.users.data.find(user => user.id !== data.id));
+    yield select(state => state.users.data.find(user => user.id === data.id));
 
     if (isDuplicated) {
       yield put(UserActions.addUserFailure('usuario duplicado'));
@@ -15,6 +15,7 @@ export function* addUser(action) {
       const userResponse = {
         id: data.id,
         name: data.name,
+        login: data.login,
         avatar_url: data.avatar_url,
         latitude: action.payload.userInfo.latitude,
         longitude: action.payload.userInfo.longitude,

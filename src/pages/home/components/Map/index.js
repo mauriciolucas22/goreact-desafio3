@@ -51,15 +51,10 @@ class Map extends Component {
       latitude,
       longitude,
     });
-
-    /*this.props.addUserRequest({
-      latitude,
-      longitude,
-      userName: 'mauriciolucas22',
-    });*/
   }
 
   render() {
+    const { users } = this.props;
     return (
       <MapGL
         {...this.state.viewport}
@@ -90,7 +85,11 @@ class Map extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  users: state.users.data,
+});
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(UsersActions, dispatch);
 
-export default connect(null, mapDispatchToProps)(Map);
+export default connect(mapStateToProps, mapDispatchToProps)(Map);

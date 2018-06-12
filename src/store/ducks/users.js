@@ -18,6 +18,7 @@ export default function users(state = INITIAL_STATE, action) {
       return {
         ...state,
         loading: true,
+        error: null,
       };
 
     case Types.ADD_USER_SUCCESS:
@@ -46,6 +47,9 @@ export default function users(state = INITIAL_STATE, action) {
   }
 }
 
+/**
+ * userInfo: { latitude, longitude, userName }
+ */
 export const Actions = {
   addUserRequest: userInfo => ({
     type: Types.ADD_USER_REQUEST,
