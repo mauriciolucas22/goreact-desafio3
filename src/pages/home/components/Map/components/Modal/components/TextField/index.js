@@ -19,23 +19,33 @@ const styles = theme => ({
 });
 
 class TextFields extends React.Component {
+  static propTypes = {
+    classes: PropTypes.shape.isRequired,
+    onChange: PropTypes.func.isRequired,
+  }
+
   handleChange = name => (event) => {
     this.setState({
       [name]: event.target.value,
     });
   };
 
+  handleOnSubmit = e => {
+    e.preventDefault();
+  }
+
   render() {
     const { classes } = this.props;
 
     return (
-      <form className={classes.container} noValidate autoComplete="off">
+      <form className={classes.container} noValidate autoComplete="off" onSubmit={this.handleOnSubmit}>
         <TextField
           id="search"
           label="Search"
           type="search"
           className={classes.textField}
           margin="normal"
+          onChange={e => this.props.onChange(e)}
         />
       </form>
     );

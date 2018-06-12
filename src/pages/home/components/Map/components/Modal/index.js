@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -19,6 +20,21 @@ function Transition(props) {
 }
 
 class AlertDialogSlide extends React.Component {
+  static propTypes = {
+    setModalVisible: PropTypes.func.isRequired,
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
+    modalVisible: PropTypes.bool.isRequired,
+  }
+
+  state = {
+    textInput: '',
+  }
+
+  onChange = (e) => {
+    this.setState({ textInput: e.target.value });
+  }
+
   handleClickOpen = () => {
     this.props.setModalVisible(true);
   };
@@ -45,14 +61,15 @@ class AlertDialogSlide extends React.Component {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              <TextFields />
+              <TextFields onChange={this.onChange} />
+              {this.state.textInput}
             </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
               Cancelar
             </Button>
-            <Button onClick={this.handleClose} color="primary">
+            <Button type="submit" onClick={this.handleClose} color="primary">
               Ok
             </Button>
           </DialogActions>
