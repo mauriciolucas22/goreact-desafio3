@@ -25,6 +25,7 @@ class AlertDialogSlide extends React.Component {
     latitude: PropTypes.number.isRequired,
     longitude: PropTypes.number.isRequired,
     modalVisible: PropTypes.bool.isRequired,
+    addUserRequest: PropTypes.func.isRequired,
   }
 
   state = {
@@ -43,6 +44,7 @@ class AlertDialogSlide extends React.Component {
       longitude,
       userName: this.state.textInput,
     });
+    this.setState({ textInput: '' });
   };
 
   handleClose = () => {

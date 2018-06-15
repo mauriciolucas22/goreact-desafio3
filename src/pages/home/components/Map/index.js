@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import MapGL, { Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -11,6 +12,10 @@ import { Actions as UsersActions } from '../../../../store/ducks/users';
 import AlertDialogSlide from './components/Modal';
 
 class Map extends Component {
+  static propTypes = {
+    setModalVisible: PropTypes.func.isRequired,
+  }
+
   state = {
     viewport: {
       width: window.innerWidth,
@@ -54,22 +59,22 @@ class Map extends Component {
   }
 
   render() {
-    const { users } = this.props;
     return (
-      <MapGL
-        {...this.state.viewport}
-        onClick={this.handleMapClick}
-        mapStyle="mapbox://styles/mapbox/basic-v9"
-        mapboxApiAccessToken="pk.eyJ1IjoiZGllZ28zZyIsImEiOiJjamh0aHc4em0wZHdvM2tyc3hqbzNvanhrIn0.3HWnXHy_RCi35opzKo8sHQ"
-        onViewportChange={viewport => this.setState({ viewport })}
-      >
-        <Marker
-          latitude={-23.5439948}
-          longitude={-46.6065452}
+      <Fragment>
+        <MapGL
+          {...this.state.viewport}
           onClick={this.handleMapClick}
-          captureClick
+          mapStyle="mapbox://styles/mapbox/basic-v9"
+          mapboxApiAccessToken="pk.eyJ1IjoiZGllZ28zZyIsImEiOiJjamh0aHc4em0wZHdvM2tyc3hqbzNvanhrIn0.3HWnXHy_RCi35opzKo8sHQ"
+          onViewportChange={viewport => this.setState({ viewport })}
         >
-          <img
+          <Marker
+            latitude={-23.5439948}
+            longitude={-46.6065452}
+            onClick={this.handleMapClick}
+            captureClick
+          >
+            <img
             style={{
               borderRadius: 100,
               width: 48,
@@ -77,16 +82,17 @@ class Map extends Component {
             }}
             src="https://avatars2.githubusercontent.com/u/2254731?v=4"
           />
-        </Marker>
-
-        {this.state.modalView && <AlertDialogSlide latitude={this.state.latitude} longitude={this.state.longitude} />}
-      </MapGL>
+          </Marker>
+        </MapGL>
+        {this.state.modalView
+          && <AlertDialogSlide latitude={this.state.latitude} longitude={this.state.longitude} />}
+      </Fragment>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  users: state.users.data,
+  users: state.users,
 });
 
 const mapDispatchToProps = dispatch =>

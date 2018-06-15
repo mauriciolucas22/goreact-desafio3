@@ -13,7 +13,8 @@ export const Container = styled.div`
 `;
 
 export const Info = styled.div`
-  display: column;
+  display: flex;
+  flex-direction: column;
   margin-left: 7px;
   flex-grow: 1;
 `;

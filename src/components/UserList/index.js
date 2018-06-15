@@ -15,6 +15,7 @@ import { Container } from './styles';
 const UserList = ({ users }) => (
   <Container>
     <p>UserList</p>
+    { users.data && users.data.map(user => <UserInfo user={user} />) }
   </Container>
 );
 
@@ -23,7 +24,7 @@ UserList.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  users: state.users.data,
+  users: state.users,
 });
 
 const mapDispatchToProps = dispatch =>

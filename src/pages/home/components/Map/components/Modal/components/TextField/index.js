@@ -20,7 +20,6 @@ const styles = theme => ({
 
 class TextFields extends React.Component {
   static propTypes = {
-    classes: PropTypes.shape.isRequired,
     onChange: PropTypes.func.isRequired,
   }
 
@@ -30,7 +29,7 @@ class TextFields extends React.Component {
     });
   };
 
-  handleOnSubmit = e => {
+  handleOnSubmit = (e) => {
     e.preventDefault();
   }
 
