@@ -2,6 +2,7 @@ export const Types = {
   ADD_USER_REQUEST: 'ADD_USER_REQUEST',
   ADD_USER_SUCCESS: 'ADD_USER_SUCCESS',
   ADD_USER_FAILURE: 'ADD_USER_FAILURE',
+  REMOVE_USER: 'REMOVE_USER',
   MODAL_VISIBLE: 'MODAL_VISIBLE',
 };
 
@@ -39,6 +40,12 @@ export default function users(state = INITIAL_STATE, action) {
         error: action.payload.error,
       };
 
+    case Types.REMOVE_USER:
+      return {
+        ...state,
+        data: state.data.filter(user => user.id !== action.payload.id),
+      };
+
     case Types.MODAL_VISIBLE:
       return { ...state, modalVisible: action.status };
 
@@ -69,6 +76,13 @@ export const Actions = {
     type: Types.ADD_USER_FAILURE,
     payload: {
       error,
+    },
+  }),
+
+  removeUser: id => ({
+    type: Types.REMOVE_USER,
+    payload: {
+      id,
     },
   }),
 

@@ -11,7 +11,7 @@ const UserInfo = ({ user }) => (
       <strong>{user.login}</strong>
     </Info>
     <Icons>
-      <i className="fa fa-times-circle" id="exluir" />
+      <button className="fa fa-times-circle" onClick={() => console.tron.log('Jesus')} />
       <i className="fa fa-angle-right" />
     </Icons>
   </Container>
