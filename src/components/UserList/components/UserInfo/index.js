@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Container, Info } from './styles';
+import { Container, Info, Icons } from './styles';
 
 const UserInfo = ({ user }) => (
   <Container>
@@ -10,6 +10,10 @@ const UserInfo = ({ user }) => (
       <strong>{user.name}</strong>
       <strong>{user.login}</strong>
     </Info>
+    <Icons>
+      <i className="fa fa-times-circle" id="exluir" />
+      <i className="fa fa-angle-right" />
+    </Icons>
   </Container>
 );
 
