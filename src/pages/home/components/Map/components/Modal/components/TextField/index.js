@@ -23,11 +23,11 @@ class TextFields extends React.Component {
     onChange: PropTypes.func.isRequired,
   }
 
-  handleChange = name => (event) => {
+  /* handleChange = name => (event) => {
     this.setState({
       [name]: event.target.value,
     });
-  };
+  }; */
 
   handleOnSubmit = (e) => {
     e.preventDefault();

@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Actions as UsersActions } from '../../../../store/ducks/users';
+
 import { Container, Info, Icons } from './styles';
 
-const UserInfo = ({ user }) => (
+const UserInfo = ({ user, removeUser }) => (
   <Container>
     <img src={user.avatar_url} alt="User" />
     <Info>
@@ -11,7 +15,7 @@ const UserInfo = ({ user }) => (
       <strong>{user.login}</strong>
     </Info>
     <Icons>
-      <button className="fa fa-times-circle" onClick={() => console.tron.log('Jesus')} />
+      <button className="fa fa-times-circle" onClick={() => removeUser(user.id)} />
       <i className="fa fa-angle-right" />
     </Icons>
   </Container>
@@ -24,6 +28,10 @@ UserInfo.propTypes = {
     login: PropTypes.string,
     avatar_url: PropTypes.string,
   }).isRequired,
+  removeUser: PropTypes.func.isRequired,
 };
 
-export default UserInfo;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(UsersActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(UserInfo);
