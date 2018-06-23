@@ -50,6 +50,11 @@ class Map extends Component {
     userInput: '',
   };
 
+  componentDidMount() {
+    window.addEventListener('resize', this._resize);
+    this._resize();
+  }
+
   componentWillReceiveProps(nextProps) {
     const { text, error } = nextProps.users.message;
     if (!error) {
@@ -61,6 +66,10 @@ class Map extends Component {
         position: toast.POSITION.TOP_CENTER,
       });
     }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._resize);
   }
 
   _resize = () => {
