@@ -83,9 +83,4 @@ export const Actions = {
       id,
     },
   }),
-
-  setModalVisible: status => ({
-    type: Types.MODAL_VISIBLE,
-    status,
-  }),
 };

@@ -6,21 +6,40 @@ import { bindActionCreators } from 'redux';
 
 import { Actions as UsersActions } from '../../store/ducks/users';
 
-import UserInfo from './components/UserInfo';
+import { Container, UserInfo, Empty } from './styles';
 
-import { Container } from './styles';
-
-// { this.props.users.map(user => <UserInfo key={user.id} user={user} />) }
-
-const UserList = ({ users }) => (
+// { users.data && users.data.map(user => <UserInfo user={user} />) }
+const UserList = ({ users, removeUser }) => (
   <Container>
-    <p>UserList</p>
-    { users.data && users.data.map(user => <UserInfo user={user} />) }
+    {!users.data.length && <Empty><strong>Adicione usuários!</strong></Empty>}
+    {users.data.map(user => (
+      <UserInfo key={user.id}>
+        <li>
+          <img src={user.avatar_url} alt={user.name} />
+          <div>
+            <strong>{user.name}</strong>
+            <small>{user.login}</small>
+          </div>
+          <button onClick={() => removeUser(user.id)}>
+            <i className="fa fa-times-circle" />
+          </button>
+          <i className="fa fa-angle-right" />
+        </li>
+      </UserInfo>
+    ))}
   </Container>
 );
 
 UserList.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  users: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      login: PropTypes.string,
+      avatar_url: PropTypes.string,
+    })),
+  }).isRequired,
+  removeUser: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
