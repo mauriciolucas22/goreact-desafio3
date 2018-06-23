@@ -39,17 +39,18 @@ class Map extends Component {
     userInput: '',
   };
 
-  /* componentWillReceiveProps(nextProps) {
-    if (!nextProps.returnMsg.error) {
-      toast.success(nextProps.returnMsg.msg, {
+  componentWillReceiveProps(nextProps) {
+    // console.tron.log(nextProps);
+    if (!nextProps.users.error) {
+      toast.success('Usuário adicionado.', {
         position: toast.POSITION.TOP_CENTER,
       });
     } else {
-      toast.error(nextProps.returnMsg.msg, {
+      toast.error('Usuário não existe!', {
         position: toast.POSITION.TOP_CENTER,
       });
     }
-  } */
+  }
 
   _resize = () => {
     this.setState({
@@ -118,6 +119,7 @@ class Map extends Component {
               </Marker>
             ))
           }
+          <ToastContainer />
         </MapGL>
 
         <Modal
