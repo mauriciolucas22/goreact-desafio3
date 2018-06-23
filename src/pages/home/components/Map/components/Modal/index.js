@@ -8,6 +8,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -51,6 +54,8 @@ class AlertDialogSlide extends React.Component {
     this.props.setModalVisible(false);
   };
 
+  notify = () => toast('User Not Exists');
+
   // <Button onClick={this.handleClickOpen}>Slide in alert dialog</Button>
   render() {
     return (
@@ -79,6 +84,10 @@ class AlertDialogSlide extends React.Component {
               Ok
             </Button>
           </DialogActions>
+
+          { !!this.props.error && toast('User Not Exists') }
+          <ToastContainer autoClose={5000} />
+
         </Dialog>
       </div>
     );
@@ -87,6 +96,7 @@ class AlertDialogSlide extends React.Component {
 
 const mapStateToProps = state => ({
   modalVisible: state.users.modalVisible,
+  error: state.users.error,
 });
 
 const mapDispatchToProps = dispatch =>
