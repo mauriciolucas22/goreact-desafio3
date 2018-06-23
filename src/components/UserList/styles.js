@@ -11,7 +11,6 @@ export const Container = styled.div`
   margin-top: 20px;
   margin-left: 20px;
   width: 320px;
-  height: 200px;
   top: 0;
   left: 0;
 `;
