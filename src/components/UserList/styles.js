@@ -71,11 +71,18 @@ export const UserInfo = styled.ul`
 
 export const Empty = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
   strong {
     font-style: italic;
+    color: #737373;
+  }
+
+  i {
+    margin-top: 20px;
+    font-size: 5.73em;
+    color: #eee;
   }
 `;

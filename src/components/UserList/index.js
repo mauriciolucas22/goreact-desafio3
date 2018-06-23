@@ -11,7 +11,13 @@ import { Container, UserInfo, Empty } from './styles';
 // { users.data && users.data.map(user => <UserInfo user={user} />) }
 const UserList = ({ users, removeUser }) => (
   <Container>
-    {!users.data.length && <Empty><strong>Adicione usuários!</strong></Empty>}
+    {!users.data.length && (
+      <Empty>
+        <strong>Adicione usuários</strong>
+        <strong>clicando no mapa!</strong>
+        <i className="fa fa-users" />
+      </Empty>
+    )}
     {users.data.map(user => (
       <UserInfo key={user.id}>
         <li>
