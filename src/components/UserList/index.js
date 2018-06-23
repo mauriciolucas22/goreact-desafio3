@@ -8,7 +8,6 @@ import { Actions as UsersActions } from '../../store/ducks/users';
 
 import { Container, UserInfo, Empty } from './styles';
 
-// { users.data && users.data.map(user => <UserInfo user={user} />) }
 const UserList = ({ users, removeUser }) => (
   <Container>
     {!users.data.length && (

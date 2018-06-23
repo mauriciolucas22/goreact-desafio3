@@ -27,6 +27,17 @@ const customStyles = {
 };
 
 class Map extends Component {
+  static propTypes = {
+    users: PropTypes.shape({
+      data: PropTypes.arrayOf(PropTypes.shape),
+      message: PropTypes.shape({
+        text: PropTypes.string,
+        error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+      }),
+    }).isRequired,
+    addUserRequest: PropTypes.func.isRequired,
+  };
+
   state = {
     viewport: {
       width: window.innerWidth,
@@ -40,13 +51,13 @@ class Map extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    // console.tron.log(nextProps);
-    if (!nextProps.users.error) {
-      toast.success('Usuário adicionado.', {
+    const { text, error } = nextProps.users.message;
+    if (!error) {
+      toast.success(text, {
         position: toast.POSITION.TOP_CENTER,
       });
     } else {
-      toast.error('Usuário não existe!', {
+      toast.error(text, {
         position: toast.POSITION.TOP_CENTER,
       });
     }
@@ -86,7 +97,7 @@ class Map extends Component {
     });
     this.setState({ userInput: '' });
     this.closeModal();
-  }
+  };
 
   render() {
     return (
@@ -98,28 +109,26 @@ class Map extends Component {
           mapboxApiAccessToken="pk.eyJ1IjoiZGllZ28zZyIsImEiOiJjamh0aHc4em0wZHdvM2tyc3hqbzNvanhrIn0.3HWnXHy_RCi35opzKo8sHQ"
           onViewportChange={viewport => this.setState({ viewport })}
         >
-          {
-            this.props.users.data.map(user => (
-              <Marker
-                key={user.id}
-                latitude={user.coordinates.latitude}
-                longitude={user.coordinates.longitude}
-                captureClick
-              >
-                <img
-                  style={{
+          {this.props.users.data.map(user => (
+            <Marker
+              key={user.id}
+              latitude={user.coordinates.latitude}
+              longitude={user.coordinates.longitude}
+              captureClick
+            >
+              <img
+                style={{
                   borderRadius: 100,
                   width: 48,
                   height: 48,
                   border: '5px solid #7159C1',
                 }}
-                  src={user.avatar_url}
-                  alt={user.name}
-                />
-              </Marker>
-            ))
-          }
-          <ToastContainer />
+                src={user.avatar_url}
+                alt={user.name}
+              />
+            </Marker>
+          ))}
+          <ToastContainer autoClose={3000} />
         </MapGL>
 
         <Modal
@@ -138,35 +147,35 @@ class Map extends Component {
               />
               <button
                 style={{
-                    margin: 3,
-                    padding: '5px 0',
-                    background: 'lightgray',
-                    width: '45%',
-                    color: '#fff',
-                    fontSize: '18px',
-                    fontwWeight: 'bold',
-                    textAlign: 'center',
-                    border: 0,
-                  }}
+                  margin: 3,
+                  padding: '5px 0',
+                  background: 'lightgray',
+                  width: '45%',
+                  color: '#fff',
+                  fontSize: '18px',
+                  fontwWeight: 'bold',
+                  textAlign: 'center',
+                  border: 0,
+                }}
                 onClick={this.closeModal}
               >
-                  Cancelar
+                Cancelar
               </button>
               <button
                 style={{
-                    margin: 3,
-                    padding: '5px 0',
-                    background: '#59ea9a',
-                    width: '45%',
-                    color: '#fff',
-                    fontSize: '18px',
-                    fontwWeight: 'bold',
-                    textAlign: 'center',
-                    border: 0,
-                  }}
+                  margin: 3,
+                  padding: '5px 0',
+                  background: '#59ea9a',
+                  width: '45%',
+                  color: '#fff',
+                  fontSize: '18px',
+                  fontwWeight: 'bold',
+                  textAlign: 'center',
+                  border: 0,
+                }}
                 type="submit"
               >
-                  Salvar
+                Salvar
               </button>
             </FormModal>
           </ModalWrapper>
@@ -183,4 +192,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>
   bindActionCreators(UsersActions, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Map);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Map);

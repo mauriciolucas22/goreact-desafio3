@@ -6,46 +6,48 @@ export const Types = {
 };
 
 const INITIAL_STATE = {
-  loading: false,
-  error: null,
   data: [],
+  message: {
+    error: null,
+    text: '',
+  },
 };
 
 export default function users(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case Types.ADD_USER_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
-
     case Types.ADD_USER_SUCCESS:
       return {
-        loading: false,
-        error: null,
-        modalVisible: false,
         data: [
           ...state.data,
           { ...action.payload.data },
         ],
+        message: {
+          ...state.message,
+          text: 'Usuário adicionado com sucesso!',
+          error: false,
+        },
       };
 
     case Types.ADD_USER_FAILURE:
       return {
         ...state,
-        loading: false,
-        error: action.payload.error,
+        message: {
+          ...state.message,
+          text: 'Usuário não existe!',
+          error: true,
+        },
       };
 
     case Types.REMOVE_USER:
       return {
         ...state,
         data: state.data.filter(user => user.id !== action.payload.id),
+        message: {
+          ...state.message,
+          text: 'Usuário removido',
+          error: false,
+        },
       };
-
-    case Types.MODAL_VISIBLE:
-      return { ...state, modalVisible: action.status };
 
     default:
       return state;
