@@ -3,13 +3,11 @@ export const Types = {
   ADD_USER_SUCCESS: 'ADD_USER_SUCCESS',
   ADD_USER_FAILURE: 'ADD_USER_FAILURE',
   REMOVE_USER: 'REMOVE_USER',
-  MODAL_VISIBLE: 'MODAL_VISIBLE',
 };
 
 const INITIAL_STATE = {
   loading: false,
   error: null,
-  modalVisible: false,
   data: [],
 };
 

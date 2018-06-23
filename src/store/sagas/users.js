@@ -17,8 +17,10 @@ export function* addUser(action) {
         name: data.name,
         login: data.login,
         avatar_url: data.avatar_url,
-        latitude: action.payload.userInfo.latitude,
-        longitude: action.payload.userInfo.longitude,
+        coordinates: {
+          latitude: action.payload.userInfo.latitude,
+          longitude: action.payload.userInfo.longitude,
+        },
       };
 
       yield put(UserActions.addUserSuccess(userResponse));
